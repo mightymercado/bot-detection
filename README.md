@@ -19,18 +19,22 @@ Signal 2 is a chromium bug in evaluateOnNewDocument. It's used in [Amazon Bot De
 ### Signal 3:
 Signal 3 is a standard technique used by CreepJS to detect inconsistencies via worker properties.
 
+### Signal 4:
+Signal 4 is a POC on sniffing Function & Object references in native functions.
+
 # Testing
-| Device / Browser                                  | S1     | S2     | S3     |
-|---------------------------------------------------|--------|--------|--------|
-| M1 iMac / Puppeteer 12.0.1 with Stealth 2.9.0     | failed | failed | failed |
-| Samsung Galaxy Note 9 / Chrome 96.0.4664.92       | passed | passed | passed |
-| Samsung Galaxy Note 9 / Samsung Browser 16.0.2.19 | passed | passed | passed |
-| M1 iMac / Safari 15.1                             | passed | passed | passed |
-| M1 iMac / Firefox 94.02                           | passed | passed | passed |
-| iPad Pro 2020 / Safari 14                         | passed | passed | failed |
-| iPad Pro 2020 / Chrome 96.0.4664.94               | passed | passed | passed |
-| MBP Pro 15" 2018 / Chrome 96.0.4664.93            | passed | passed | passed |
-| MBP Pro 15" 2018 / Brave 1.32.113                 | passed | passed | passed |
+| Device / Browser                                  | S1     | S2     | S3     | S4     |
+|---------------------------------------------------|--------|--------|--------|--------|
+| M1 iMac / Puppeteer 12.0.1 with Stealth 2.9.0     | failed | failed | failed | failed |
+| Samsung Galaxy Note 9 / Chrome 96.0.4664.92       | passed | passed | passed | todo   |
+| Samsung Galaxy Note 9 / Samsung Browser 16.0.2.19 | passed | passed | passed | todo   |
+| M1 iMac / Chrome 96.0.4664.94                     | passed | passed | passed | passed |
+| M1 iMac / Safari 15.1                             | passed | passed | passed | todo   |
+| M1 iMac / Firefox 94.02                           | passed | passed | passed | todo   |
+| iPad Pro 2020 / Safari 14                         | passed | passed | failed | todo   |
+| iPad Pro 2020 / Chrome 96.0.4664.94               | passed | passed | passed | todo   |
+| MBP Pro 15" 2018 / Chrome 96.0.4664.93            | passed | passed | passed | todo   |
+| MBP Pro 15" 2018 / Brave 1.32.113                 | passed | passed | passed | todo   |
 
 **Note:** _IPad Pro 2020 / Safari 14_ seems to incorrectly fail on S3. CreepJS also has a pretty low trust score for the same device / browser. I'll leave it to further investigation.
 
