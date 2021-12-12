@@ -135,7 +135,7 @@
         document.getElementById('s2').innerHTML = !s2 ? '✅ Passed' : '❌ Negative'
         document.getElementById('s3').innerHTML = !s3 ? '✅ Passed' : '❌ Negative'
 
-        const filename = s1 && s2 && s3 ? 'bot.jpeg' : 'ok.jpeg'
+        const filename = s1 || s2 || s3 ? 'bot.jpeg' : 'ok.jpeg'
 
         document.getElementById('img').src = filename
       }
