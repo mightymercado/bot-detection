@@ -14,7 +14,7 @@ https://serene-benz-a681c4.netlify.app/ ( PASSWORD: superstrong999@#$ )
 Signal 1 is a low hanging fruit in Puppeteer Extra Stealth which has not been worked on yet. See it [here](https://github.com/berstend/puppeteer-extra/pull/565).
 
 ### Signal 2:
-Signal 2 is a chromium bug in evaluateOnNewDocument. It's used in [Amazon Bot Detection Script](https://github.com/chris124567/commercial-bot-detectors/blob/master/files/amazon.j) (See **#_injectIframe_** function)
+Signal 2 is a chromium bug in evaluateOnNewDocument. It's used in [Amazon Bot Detection Script](https://github.com/chris124567/commercial-bot-detectors/blob/master/files/amazon.js) (See **#_injectIframe_** function)
 
 ### Signal 3:
 Signal 3 is a standard technique used by CreepJS to detect inconsistencies via worker properties.
