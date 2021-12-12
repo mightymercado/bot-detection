@@ -41,7 +41,7 @@ Signal 4 is a POC on sniffing Function & Object references in native functions.
 ## Methodology
 I followed three main branches of approach:
 1. Testing each evasion script on commercial bot detectors to find a weak evasion.
-1. Reverse engineering some commercial bot detectors with still some readability.
+1. Reverse engineering some commercial bot detectors that still has some readability.
 2. Code-reading Puppeteer-extra stealth and back reading github discussions.
 
 ## Personal Notes
