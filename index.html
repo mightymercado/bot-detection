@@ -1,0 +1,168 @@
+<html>
+  <head>
+    <title>Stealth Detection</title>
+    <script>
+      const detectCreateElementTampering = () => {
+        const createElementDesc = Object.getOwnPropertyDescriptor(document, 'createElement')
+
+        return createElementDesc && !createElementDesc.writeable
+      }
+
+      const jsonifyValue = (value) => {
+        if ([null, undefined].includes(value)) {
+          return null
+        }
+
+        if ([true, false].includes(value)) {
+          return value
+        }
+
+        if (typeof value == 'number') {
+          return value
+        }
+
+        if (value instanceof Array) {
+          const jsonified = []
+
+          for (const element of value) {
+            jsonified.push(jsonifyValue(element))
+          }
+
+          return JSON.stringify(jsonified)
+        }
+
+        if (value.toString) {
+          return value.toString()
+        }
+
+        return null
+      }
+
+      const stringifyObject = (original) => {
+        const object = {}
+        const properties = Object.keys(Object.getPrototypeOf(original))
+
+        for (const prop of properties) {
+          object[prop] = jsonifyValue(original[prop])
+
+          const descriptor = Object.getOwnPropertyDescriptor(Object.getPrototypeOf(original), prop)
+          for (const key of Object.keys(descriptor)) {
+            const name = `descriptor-${prop}-${key}`
+            object[name] = jsonifyValue(descriptor[key])
+          }
+        }
+
+        return object
+      }
+
+      const isEqual = (original, copy, forgive_undefined = false) => {
+        const properties = Object.keys(Object.getPrototypeOf(original))
+        let returnValue = true
+
+        for (const prop of properties) {
+          if (copy[prop] === undefined && forgive_undefined) continue
+
+          if (jsonifyValue(original[prop]) !== copy[prop]) {
+            console.log('DEBUG', prop, original[prop], '!==', copy[prop])
+            returnValue &&= false
+          }
+
+          const descriptor = Object.getOwnPropertyDescriptor(Object.getPrototypeOf(original), prop)
+          for (const key of Object.keys(descriptor)) {
+            const name = `descriptor-${prop}-${key}`
+            if (jsonifyValue(descriptor[key]) !== copy[name]) {
+              console.log('DEBUG', name, descriptor[key], '!==', copy[name])
+              returnValue &&= false
+            }
+          }
+        }
+
+        return returnValue;
+      }
+
+      const detectTamperingUsingIframe = () => {
+        return new Promise((resolve, reject) => {
+          const el = document.createElement('iframe')
+          window.addEventListener("message", (event) => {
+            resolve(!isEqual(navigator, event.data))
+            el.remove()
+          }, false)
+
+          const code = `const jsonifyValue = ${jsonifyValue.toString()};` + 
+                       `const stringifyObject = ${stringifyObject.toString()};` + 
+                       `parent.postMessage(stringifyObject(navigator));`
+
+          el.src = "javascript:0"
+          document.body.appendChild(el)
+
+          doc = el.contentDocument
+          doc.open()
+          doc.writeln('<!DOCTYPE html><html><head><title></title></head><body></body></html>')
+          doc.close()
+          el2 = doc.createElement('script')
+          el2.type = 'text/javascript'
+          el2.text = code;
+          doc.body.appendChild(el2);
+
+        })
+      }
+
+      const detectTamperingUsingWorkers = () => {
+        return new Promise((resolve, reject) => { 
+          if (typeof(Worker) === "undefined") {
+            resolve(false)
+          }
+
+          const code = `const jsonifyValue = ${jsonifyValue.toString()};` + 
+                       `const stringifyObject = ${stringifyObject.toString()};` + 
+                       `postMessage(stringifyObject(navigator));`
+
+          const blobURL = URL.createObjectURL(new Blob([code], { type: 'application/javascript' }))
+
+          const worker = new Worker(blobURL)
+          worker.onmessage = (event) => {
+            resolve(!isEqual(navigator, event.data, true))
+          };
+        })
+      }
+
+      const generateSignals = async () => {
+        const s1 = detectCreateElementTampering()
+        const s2 = await detectTamperingUsingIframe()
+        const s3 = await detectTamperingUsingWorkers()
+
+        document.getElementById('s1').innerHTML = !s1 ? '✅ Passed' : '❌ Negative'
+        document.getElementById('s2').innerHTML = !s2 ? '✅ Passed' : '❌ Negative'
+        document.getElementById('s3').innerHTML = !s3 ? '✅ Passed' : '❌ Negative'
+
+        const filename = s1 && s2 && s3 ? 'bot.jpeg' : 'ok.jpeg'
+
+        document.getElementById('img').src = filename
+      }
+    </script>
+
+    <style>
+      /*
+        Some basic styling
+      */
+
+      body {
+        font-family: Arial;
+      }
+
+      #container {
+        width: 600px;
+        margin: 0 auto;
+      }
+    </style>
+  </head>
+  <body onload="generateSignals()">
+    <div id="container"> 
+      <h1>Bot Detection</h1>
+      Signal 1 (document.createElement Tampering): <h3 id="s1">checking...</h1>
+      Signal 2 (navigator Tampering using IFrame): <h3 id="s2">checking</h1>
+      Signal 3 (navigator Tampering using Worker): <h3 id="s3">checking</h1>
+      <img id="img" width="300px" height="200px"></img>
+    </div>
+  </body>
+</html>
