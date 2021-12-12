@@ -128,7 +128,13 @@
       const detectNonNativeFunction = () => {
         const FunctionBackup = window.Function
         const ObjectBackup = window.Object
-        const f = Object.getOwnPropertyDescriptor(Object.getPrototypeOf(navigator), 'hardwareConcurrency')['get']
+
+        const descriptor = Object.getOwnPropertyDescriptor(Object.getPrototypeOf(navigator), 'hardwareConcurrency')
+
+        // safari doesnt have this
+        if (!descriptor) return false;
+
+        const f = descriptor['get']
         
         // must not access Function/Object
         delete window.Function 
