@@ -51,4 +51,4 @@ I followed three main branches of approach to find techniques:
 
 ## Personal Notes
 1. I feel it's a little hard to detect stealth today than last year because they now use Proxy & a clone of Reflect class.
-2. Stealth with only webdriver evasion enabled on a non-virtualized machine seems to work on all sites except ones with Shape Security bot detection (e.g. nordstrom.com). So, I speculate that there must be a way to detect non-tampered Puppeteer instance.
+2. Shape Security bot detection (e.g. nordstrom.com) seems to be the strongest.
