@@ -1,7 +1,7 @@
 # Detecting Puppeteer-Extra Stealth in Headed Mode
 
 ## Website
-https://serene-benz-a681c4.netlify.app/ ( PASSWORD: superstrong999@# )
+https://serene-benz-a681c4.netlify.app/ ( PASSWORD: superstrong999@#$ )
 
 ## Preview
 | Regular Browser | Puppeteer with Stealth |
