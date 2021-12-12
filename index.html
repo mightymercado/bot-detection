@@ -77,7 +77,7 @@
           }
         }
 
-        return returnValue;
+        return returnValue
       }
 
       const detectTamperingUsingIframe = () => {
@@ -90,9 +90,9 @@
 
           const code = `const jsonifyValue = ${jsonifyValue.toString()};` + 
                        `const stringifyObject = ${stringifyObject.toString()};` + 
-                       `parent.postMessage(stringifyObject(navigator));`
+                       `parent.postMessage(stringifyObject(navigator, window.location.href));`
 
-          el.src = "javascript:0"
+          el.src = 'javascript:1' //'about:blank'
           document.body.appendChild(el)
 
           doc = el.contentDocument
@@ -101,8 +101,8 @@
           doc.close()
           el2 = doc.createElement('script')
           el2.type = 'text/javascript'
-          el2.text = code;
-          doc.body.appendChild(el2);
+          el2.text = code
+          doc.body.appendChild(el2)
 
         })
       }
@@ -118,24 +118,47 @@
                        `postMessage(stringifyObject(navigator));`
 
           const blobURL = URL.createObjectURL(new Blob([code], { type: 'application/javascript' }))
-
           const worker = new Worker(blobURL)
           worker.onmessage = (event) => {
             resolve(!isEqual(navigator, event.data, true))
-          };
+          }
         })
+      }
+
+      const detectNonNativeFunction = () => {
+        const FunctionBackup = window.Function
+        const ObjectBackup = window.Object
+        const f = Object.getOwnPropertyDescriptor(Object.getPrototypeOf(navigator), 'hardwareConcurrency')['get']
+        
+        // must not access Function/Object
+        delete window.Function 
+        delete window.Object
+
+        let error = false;
+        try { f.toString() } catch { error = true }
+
+        window.Function = FunctionBackup
+        window.Object = ObjectBackup
+
+        if (error) {
+          console.log('DEBUG', 'crash was due to', error)
+        }
+
+        return error
       }
 
       const generateSignals = async () => {
         const s1 = detectCreateElementTampering()
         const s2 = await detectTamperingUsingIframe()
         const s3 = await detectTamperingUsingWorkers()
+        const s4 = await detectNonNativeFunction()
 
         document.getElementById('s1').innerHTML = !s1 ? '✅ Passed' : '❌ Negative'
         document.getElementById('s2').innerHTML = !s2 ? '✅ Passed' : '❌ Negative'
         document.getElementById('s3').innerHTML = !s3 ? '✅ Passed' : '❌ Negative'
+        document.getElementById('s4').innerHTML = !s4 ? '✅ Passed' : '❌ Negative'
 
-        const filename = s1 || s2 || s3 ? 'bot.jpeg' : 'ok.jpeg'
+        const filename = s1 || s2 || s3 || s4 ? 'bot.jpeg' : 'ok.jpeg'
 
         document.getElementById('img').src = filename
       }
@@ -159,9 +182,10 @@
   <body onload="generateSignals()">
     <div id="container"> 
       <h1>Bot Detection</h1>
-      Signal 1 (document.createElement Tampering): <h3 id="s1">checking...</h1>
-      Signal 2 (navigator Tampering using IFrame): <h3 id="s2">checking</h1>
-      Signal 3 (navigator Tampering using Worker): <h3 id="s3">checking</h1>
+      Signal 1 (document.createElement Tampering): <h3 id="s1">checking...</h3>
+      Signal 2 (navigator Tampering using IFrame): <h3 id="s2">checking...</h3>
+      Signal 3 (navigator Tampering using Worker): <h3 id="s3">checking...</h3>
+      Signal 4 (detect Function & Object reference in native functions): <h3 id="s4">checking...</h3>
       <img id="img" width="300px" height="200px"></img>
     </div>
   </body>
