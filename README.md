@@ -43,7 +43,7 @@ I followed three main branches of approach:
 1. Testing each evasion script on commercial bot detectors to find a weak evasion.
 1. Reverse engineering some commercial bot detectors with still some readability.
 2. Code-reading Puppeteer-extra stealth and back reading github discussions.
-  - I feel it's a little hard to detect now because they now use Proxy & a clone of Reflect class.
 
 ## Personal Notes
-1. Stealth with only webdriver evasion on a non-virtualized machine seems to work on all sites except ones with Shape Security bot detection (e.g. nordstrom.com). So, I speculate that there must be a way to detect Puppeteer without tampering.
+1. I feel it's a little hard to detect stealth today than last year because they now use Proxy & a clone of Reflect class.
+2. Stealth with only webdriver evasion enabled on a non-virtualized machine seems to work on all sites except ones with Shape Security bot detection (e.g. nordstrom.com). So, I speculate that there must be a way to detect non-tampered Puppeteer instance.
