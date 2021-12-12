@@ -41,10 +41,10 @@ Signal 4 is a POC on sniffing Function & Object references in native functions.
 **Note:** _IPad Pro 2020 / Safari 14_ seems to incorrectly fail on S3 because `navigator.platform` is inconsistent. On that note, CreepJS also has a pretty low trust score for the same device / browser. I'll leave this issue to further investigation in the future.
 
 ## Methodology
-I followed three main branches of approach:
+I followed three main branches of approach to find techniques:
 1. Testing each evasion script on commercial bot detectors to find a weak evasion.
-1. Reverse engineering some commercial bot detectors that still has some readability.
-2. Code-reading Puppeteer-extra stealth and back reading github discussions.
+2. Reverse engineering some commercial bot detectors that still has some readability.
+3. Code-reading Puppeteer-extra stealth and back reading github discussions for some unresolved flaws.
 
 ## Personal Notes
 1. I feel it's a little hard to detect stealth today than last year because they now use Proxy & a clone of Reflect class.
