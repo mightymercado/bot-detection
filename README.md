@@ -5,6 +5,9 @@
 
 **Password:** superstrong999@#$
 
+## Files
+Note that `index.html` is the raw code, while `public/index.html` is the encrypted code which is exposed in netlify.
+
 ## Preview
 | Regular Browser | Puppeteer with Stealth |
 |-----------------|------------------------|
