@@ -36,7 +36,7 @@ Signal 4 is a POC on sniffing Function & Object references in native functions.
 | MBP Pro 15" 2018 / Chrome 96.0.4664.93            | passed | passed | passed | todo   |
 | MBP Pro 15" 2018 / Brave 1.32.113                 | passed | passed | passed | todo   |
 
-**Note:** _IPad Pro 2020 / Safari 14_ seems to incorrectly fail on S3 because `navigator.platform` is different. CreepJS also has a pretty low trust score for the same device / browser. I'll leave it to further investigation.
+**Note:** _IPad Pro 2020 / Safari 14_ seems to incorrectly fail on S3 because `navigator.platform` is inconsistent. On that note, CreepJS also has a pretty low trust score for the same device / browser. I'll leave this issue to further investigation in the future.
 
 ## Methodology
 I followed three main branches of approach:
