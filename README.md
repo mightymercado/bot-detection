@@ -1,4 +1,4 @@
-# Detecting Puppeteer-Extra Stealth in Headed Mode
+# Detecting puppeteer-extra-stealth in Headed Mode
 
 ## Demo
 **Link:** https://serene-benz-a681c4.netlify.app/
@@ -13,7 +13,7 @@
 ## Signals
 
 ### Signal 1:
-Signal 1 is a low hanging fruit in Puppeteer Extra Stealth which has not been worked on yet. See it [here](https://github.com/berstend/puppeteer-extra/pull/565).
+Signal 1 is a low hanging fruit in puppeteer-extra-stealth which has not been worked on yet. See it [here](https://github.com/berstend/puppeteer-extra/pull/565).
 
 ### Signal 2:
 Signal 2 is a chromium bug which allows us to skip evaluateOnNewDocument. It's used in [Amazon Bot Detection Script](https://github.com/chris124567/commercial-bot-detectors/blob/master/files/amazon.js) (See **#_injectIframe_** function)
@@ -44,7 +44,7 @@ Signal 4 is a POC on sniffing Function & Object references in native functions.
 I followed three main branches of approach to find techniques:
 1. Testing each evasion script on commercial bot detectors to find a weak evasion.
 2. Reverse engineering some commercial bot detectors that still has some readability.
-3. Code-reading Puppeteer-extra stealth and back reading github discussions for some unresolved flaws.
+3. Code-reading puppeteer-extra-stealth and back reading github discussions for some unresolved flaws.
 
 ## Personal Notes
 1. I feel it's a little hard to detect stealth today than last year because they now use Proxy & a clone of Reflect class.
