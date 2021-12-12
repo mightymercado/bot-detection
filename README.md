@@ -39,7 +39,7 @@ I followed three main branches of approach:
 1. Testing each evasion script on commercial bot detectors to find a weak evasion.
 1. Reverse engineering some commercial bot detectors with still some readability.
 2. Code-reading Puppeteer-extra stealth and back reading github discussions.
-  - I feel it's a little hard to bypass now because they now use Proxy & used a clone of Reflect class.
+  - I feel it's a little hard to detect now because they now use Proxy & a clone of Reflect class.
 
 ## Personal Notes
 1. Stealth with only webdriver evasion on a non-virtualized machine seems to work on all sites except Shape Security (nordstrom.com).
