@@ -64,7 +64,7 @@
 
           if (jsonifyValue(original[prop]) !== copy[prop]) {
             console.log('DEBUG', prop, original[prop], '!==', copy[prop])
-            returnValue &&= false
+            returnValue = returnValue && false
           }
 
           const descriptor = Object.getOwnPropertyDescriptor(Object.getPrototypeOf(original), prop)
@@ -72,7 +72,7 @@
             const name = `descriptor-${prop}-${key}`
             if (jsonifyValue(descriptor[key]) !== copy[name]) {
               console.log('DEBUG', name, descriptor[key], '!==', copy[name])
-              returnValue &&= false
+              returnValue = returnValue && false
             }
           }
         }
@@ -90,7 +90,7 @@
 
           const code = `const jsonifyValue = ${jsonifyValue.toString()};` + 
                        `const stringifyObject = ${stringifyObject.toString()};` + 
-                       `parent.postMessage(stringifyObject(navigator, window.location.href));`
+                       `parent.postMessage(stringifyObject(navigator), location.href);`
 
           el.src = 'javascript:1' //'about:blank'
           document.body.appendChild(el)
