@@ -36,14 +36,14 @@ Signal 4 is a POC on sniffing Function & Object references in native functions.
 | M1 iMac / Chrome 96.0.4664.94                     | passed | passed | passed | passed   |
 | M1 iMac / Safari 15.1                             | passed | passed | passed | passed   |
 | M1 iMac / Firefox 94.02                           | passed | passed | passed | passed   |
-| iPad Pro 2020 / Safari 14                         | passed | passed | failed | passed   |
-| iPad Pro 2020 / Chrome 96.0.4664.94               | passed | passed | passed | passed   |
+| iPad Pro 2018 / Safari 14                         | passed | passed | failed | passed   |
+| iPad Pro 2018 / Chrome 96.0.4664.94               | passed | passed | passed | passed   |
 | MBP Pro 15" 2018 / Chrome 96.0.4664.93            | passed | passed | passed | passed   |
 | MBP Pro 15" 2018 / Brave 1.32.113                 | passed | passed | passed | passed   |
-| iPhone 13 Pro Max / Chrome 96.4664.94             | passed | passed | passed | passed   |
-| iPhone 13 Pro Max / Safari 14.1.2                 | passed | passed | passed | passed   |
+| iPhone 12 Pro Max / Chrome 96.4664.94             | passed | passed | passed | passed   |
+| iPhone 12 Pro Max / Safari 14.1.2                 | passed | passed | passed | passed   |
 
-**Note:** _IPad Pro 2020 / Safari 14_ seems to incorrectly fail on S3 because `navigator.platform` is inconsistent. On that note, CreepJS also has a pretty low trust score for the same device / browser. I'll leave this issue to further investigation in the future.
+**Note:** _IPad Pro 2018 / Safari 14_ seems to incorrectly fail on S3 because `navigator.platform` is inconsistent. On that note, CreepJS also has a pretty low trust score for the same device / browser. I'll leave this issue to further investigation in the future.
 
 ## Methodology
 I followed three main branches of approach to find techniques:
